@@ -1,4 +1,7 @@
 import { fetchUsers } from "./model.js";
+import Renderer from "./view.js";
+
+const renderer = new Renderer();
 
 fetchUsers().then((data) => {
   const users = data.results;
@@ -13,8 +16,6 @@ fetchUsers().then((data) => {
     lastName: user.name.last,
   }));
 
-  console.log("Main user:", mainUser);
-  console.log("Friends:", friends);
-
-  // You can now pass this cleaned data to your View/Renderer
+  renderer.renderMainUser(mainUser);
+  renderer.renderFriends(friends);
 });
