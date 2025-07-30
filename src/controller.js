@@ -34,8 +34,10 @@ fetchUsers().then((data) => {
 
   // Fetch and render random Pokemon
   fetchRandomPokemon().then((data) => {
+    // Convert name to Proper Case
+    const properName = data.name.charAt(0).toUpperCase() + data.name.slice(1).toLowerCase();
     const pokemon = {
-      name: data.name,
+      name: properName,
       image: data.sprites.front_default,
     };
     renderer.renderPokemon(pokemon);
