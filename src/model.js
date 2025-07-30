@@ -4,3 +4,10 @@ export function fetchUsers() {
     dataType: "json",
   });
 }
+
+export function fetchKanyeQuote() {
+  return $.ajax({
+    url: "https://api.kanye.rest/",
+    dataType: "json",
+  });
+}

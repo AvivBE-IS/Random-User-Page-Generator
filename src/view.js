@@ -15,4 +15,8 @@ export default class Renderer {
       container.append(`<li>${friend.firstName} ${friend.lastName}</li>`);
     });
   }
+
+  renderQuote(quote) {
+    $(".quote").text(`"${quote}"`);
+  }
 }

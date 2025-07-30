@@ -1,4 +1,4 @@
-import { fetchUsers } from "./model.js";
+import { fetchUsers, fetchKanyeQuote } from "./model.js";
 import Renderer from "./view.js";
 
 const renderer = new Renderer();
@@ -21,4 +21,9 @@ fetchUsers().then((data) => {
 
   renderer.renderMainUser(mainUser);
   renderer.renderFriends(friends);
+
+  // Fetch and render Kanye quote
+  fetchKanyeQuote().then((data) => {
+    renderer.renderQuote(data.quote);
+  });
 });
