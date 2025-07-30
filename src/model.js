@@ -11,3 +11,11 @@ export function fetchKanyeQuote() {
     dataType: "json",
   });
 }
+
+export function fetchRandomPokemon() {
+  const id = Math.floor(Math.random() * 1025) + 1; // 1 to 1025
+  return $.ajax({
+    url: `https://pokeapi.co/api/v2/pokemon/${id}`,
+    dataType: "json",
+  });
+}

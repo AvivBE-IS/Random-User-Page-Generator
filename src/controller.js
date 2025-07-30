@@ -1,4 +1,4 @@
-import { fetchUsers, fetchKanyeQuote } from "./model.js";
+import { fetchUsers, fetchKanyeQuote, fetchRandomPokemon } from "./model.js";
 import Renderer from "./view.js";
 
 const renderer = new Renderer();
@@ -25,5 +25,14 @@ fetchUsers().then((data) => {
   // Fetch and render Kanye quote
   fetchKanyeQuote().then((data) => {
     renderer.renderQuote(data.quote);
+  });
+
+  // Fetch and render random Pokemon
+  fetchRandomPokemon().then((data) => {
+    const pokemon = {
+      name: data.name,
+      image: data.sprites.front_default,
+    };
+    renderer.renderPokemon(pokemon);
   });
 });

@@ -19,4 +19,9 @@ export default class Renderer {
   renderQuote(quote) {
     $(".quote").text(`"${quote}"`);
   }
+
+  renderPokemon(pokemon) {
+    $(".pokemon-section img").attr("src", pokemon.image);
+    $(".pokemon-section span").text(`Favorite Pokemon: ${pokemon.name}`);
+  }
 }
