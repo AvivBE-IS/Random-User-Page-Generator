@@ -19,3 +19,10 @@ export function fetchRandomPokemon() {
     dataType: "json",
   });
 }
+
+export function fetchBaconIpsum() {
+  return $.ajax({
+    url: "https://baconipsum.com/api/?type=meat-and-filler&sentences=1",
+    dataType: "json",
+  });
+}

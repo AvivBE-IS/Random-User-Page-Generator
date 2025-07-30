@@ -1,4 +1,9 @@
-import { fetchUsers, fetchKanyeQuote, fetchRandomPokemon } from "./model.js";
+import {
+  fetchUsers,
+  fetchKanyeQuote,
+  fetchRandomPokemon,
+  fetchBaconIpsum,
+} from "./model.js";
 import Renderer from "./view.js";
 
 const renderer = new Renderer();
@@ -34,5 +39,10 @@ fetchUsers().then((data) => {
       image: data.sprites.front_default,
     };
     renderer.renderPokemon(pokemon);
+  });
+
+  // Fetch and render About Me text
+  fetchBaconIpsum().then((data) => {
+    renderer.renderAbout(data[0]);
   });
 });

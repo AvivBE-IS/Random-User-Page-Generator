@@ -24,4 +24,8 @@ export default class Renderer {
     $(".pokemon-section img").attr("src", pokemon.image);
     $(".pokemon-section span").text(`Favorite Pokemon: ${pokemon.name}`);
   }
+
+  renderAbout(text) {
+    $(".about-section p").text(text);
+  }
 }
