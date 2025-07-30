@@ -1,13 +1,14 @@
 export default class Renderer {
   renderMainUser(user) {
-    // Update the main user's name in the .user-info h2
+    // Update the main user's name
     $(".user-info h2").text(`${user.firstName} ${user.lastName}`);
-    // Optionally clear h3 or set more info if needed
-    $(".user-info h3").text(""); // Or set to something meaningful
+    // Update city and state
+    $(".user-info h3").text(`${user.city}, ${user.state}`);
+    // Update the user's image
+    $(".user-img").attr("src", user.picture);
   }
 
   renderFriends(friends) {
-    // Update the friends list inside .friends-list ul
     const container = $(".friends-list ul");
     container.empty();
     friends.forEach((friend) => {

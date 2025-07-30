@@ -9,6 +9,9 @@ fetchUsers().then((data) => {
   const mainUser = {
     firstName: users[0].name.first,
     lastName: users[0].name.last,
+    picture: users[0].picture.large,
+    city: users[0].location.city,
+    state: users[0].location.state,
   };
 
   const friends = users.slice(1).map((user) => ({
