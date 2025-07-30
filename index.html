@@ -13,40 +13,42 @@
   </head>
   <body>
     <div class="container">
-      <div class="user-card">
-        <img class="user-img" alt="user-img" />
-        <div class="user-info">
-          <h2></h2>
-          <h3></h3>
+      <div class="main-row">
+        <div class="main-content">
+          <div class="user-card">
+            <img class="user-img" alt="user-img" />
+            <div class="user-info">
+              <h2></h2>
+              <h3></h3>
+            </div>
+          </div>
+          <div class="quote-section">
+            <span class="quote-label">Favorite quote:</span>
+            <p class="quote"></p>
+          </div>
+          <div class="pokemon-section">
+            <img alt="Pokemon" />
+            <span>Favorite Pokemon: </span>
+          </div>
+          <div class="about-section">
+            <h3>About me</h3>
+            <p></p>
+          </div>
+        </div>
+        <div class="friends-list">
+          <h3>Friends</h3>
+          <ul></ul>
         </div>
       </div>
-
-      <div class="quote-section">
-        <p class="quote"></p>
-      </div>
-
-      <div class="pokemon-section">
-        <img alt="Pokemon" />
-        <span>Favorite Pokemon: </span>
-      </div>
-
-      <div class="about-section">
-        <h3>About me</h3>
-        <p></p>
-      </div>
-
-      <div class="controls">
-        <button class="generate-btn">Generate User</button>
-        <button class="save-btn">Save User Page</button>
-        <select class="saved-users-dropdown"></select>
-        <button class="load-btn">Load User Page</button>
-      </div>
-
-      <div class="friends-list">
-        <h3>Friends</h3>
-        <ul></ul>
-      </div>
     </div>
+
+    <div class="controls">
+      <button class="generate-btn">Generate User</button>
+      <button class="save-btn">Save User Page</button>
+      <select class="saved-users-dropdown"></select>
+      <button class="load-btn">Load User Page</button>
+    </div>
+
     <script type="module" src="./src/controller.js"></script>
   </body>
 </html>
