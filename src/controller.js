@@ -78,6 +78,10 @@ $(".save-btn").on("click", function () {
   if (currentPageData) {
     let usersObj = JSON.parse(localStorage.getItem("savedUserPages") || "{}");
     const username = `${currentPageData.mainUser.firstName} ${currentPageData.mainUser.lastName}`;
+    if (usersObj[username]) {
+      alert("A user with this name already exists. Please generate a new user or use a unique name.");
+      return;
+    }
     usersObj[username] = currentPageData;
     localStorage.setItem("savedUserPages", JSON.stringify(usersObj));
     updateSavedUsersDropdown();
