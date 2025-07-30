@@ -62,19 +62,39 @@ function generateUserPage() {
 // Initial page load
 generateUserPage();
 
+// Helper to update dropdown with saved users
+function updateSavedUsersDropdown() {
+  const usersObj = JSON.parse(localStorage.getItem("savedUserPages") || "{}");
+  const $dropdown = $(".saved-users-dropdown");
+  $dropdown.empty();
+  $dropdown.append(`<option value="">Select a user...</option>`);
+  Object.keys(usersObj).forEach((key) => {
+    $dropdown.append(`<option value="${key}">${key}</option>`);
+  });
+}
+
 // Save User Page
 $(".save-btn").on("click", function () {
   if (currentPageData) {
-    localStorage.setItem("savedUserPage", JSON.stringify(currentPageData));
+    let usersObj = JSON.parse(localStorage.getItem("savedUserPages") || "{}");
+    const username = `${currentPageData.mainUser.firstName} ${currentPageData.mainUser.lastName}`;
+    usersObj[username] = currentPageData;
+    localStorage.setItem("savedUserPages", JSON.stringify(usersObj));
+    updateSavedUsersDropdown();
     alert("User page saved!");
   }
 });
 
 // Load User Page
 $(".load-btn").on("click", function () {
-  const saved = localStorage.getItem("savedUserPage");
-  if (saved) {
-    const data = JSON.parse(saved);
+  const selected = $(".saved-users-dropdown").val();
+  if (!selected) {
+    alert("Please select a user to load.");
+    return;
+  }
+  const usersObj = JSON.parse(localStorage.getItem("savedUserPages") || "{}");
+  const data = usersObj[selected];
+  if (data) {
     currentPageData = data;
     renderer.renderMainUser(data.mainUser);
     renderer.renderFriends(data.friends);
@@ -82,11 +102,11 @@ $(".load-btn").on("click", function () {
     renderer.renderPokemon(data.pokemon);
     renderer.renderAbout(data.about);
   } else {
-    alert("No saved user page found.");
+    alert("No saved user page found for this selection.");
   }
 });
 
-// Generate new user page
-$(".generate-btn").on("click", function () {
-  generateUserPage();
+// On page load, update dropdown
+$(document).ready(function () {
+  updateSavedUsersDropdown();
 });
