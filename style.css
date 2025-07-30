@@ -81,6 +81,16 @@ body {
   width: 200px;
 }
 
+/* Responsive: stack friends list below main content on small screens */
+@media (max-width: 700px) {
+  .friends-list {
+    position: static;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
+  }
+}
+
 .friends-list h3 {
   margin-top: 0;
 }
