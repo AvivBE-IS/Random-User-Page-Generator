@@ -8,12 +8,15 @@ import Renderer from "./view.js";
 
 const renderer = new Renderer();
 
+const $generateBtn = $(".generate-btn");
+const $saveBtn = $(".save-btn");
+const $loadBtn = $(".load-btn");
+const $savedUsersDropdown = $(".saved-users-dropdown");
+
 let currentPageData = null;
 
 function showError(message) {
-  // Remove any existing error
   $(".error-message").remove();
-  // Show new error at the top of the container
   $(".container").prepend(
     `<div class="error-message" style="color:red; margin-bottom:10px;">${message}</div>`
   );
@@ -30,7 +33,6 @@ function generateUserPage() {
   fetchUsers()
     .then((data) => {
       const users = data.results;
-
       const mainUser = {
         firstName: users[0].name.first,
         lastName: users[0].name.last,
@@ -38,13 +40,10 @@ function generateUserPage() {
         city: users[0].location.city,
         state: users[0].location.state,
       };
-
       const friends = users.slice(1).map((user) => ({
         firstName: user.name.first,
         lastName: user.name.last,
       }));
-
-      // Fetch all data in parallel
       Promise.all([fetchKanyeQuote(), fetchRandomPokemon(), fetchBaconIpsum()])
         .then(([kanyeData, pokemonData, baconData]) => {
           const properName =
@@ -56,8 +55,6 @@ function generateUserPage() {
           };
           const quote = kanyeData.quote;
           const about = baconData[0];
-
-          // Save current page data for saving
           currentPageData = {
             mainUser,
             friends,
@@ -65,7 +62,6 @@ function generateUserPage() {
             pokemon,
             about,
           };
-
           renderer.renderMainUser(mainUser);
           renderer.renderFriends(friends);
           renderer.renderQuote(quote);
@@ -81,22 +77,18 @@ function generateUserPage() {
     .catch(() => showError("Failed to fetch users. Please try again."));
 }
 
-// Initial page load
 generateUserPage();
 
-// Helper to update dropdown with saved users
 function updateSavedUsersDropdown() {
   const usersObj = JSON.parse(localStorage.getItem("savedUserPages") || "{}");
-  const $dropdown = $(".saved-users-dropdown");
-  $dropdown.empty();
-  $dropdown.append(`<option value="">Select a user...</option>`);
+  $savedUsersDropdown.empty();
+  $savedUsersDropdown.append(`<option value="">Select a user...</option>`);
   Object.keys(usersObj).forEach((key) => {
-    $dropdown.append(`<option value="${key}">${key}</option>`);
+    $savedUsersDropdown.append(`<option value="${key}">${key}</option>`);
   });
 }
 
-// Save User Page
-$(".save-btn").on("click", function () {
+$saveBtn.on("click", function () {
   if (currentPageData) {
     let usersObj = JSON.parse(localStorage.getItem("savedUserPages") || "{}");
     const username = `${currentPageData.mainUser.firstName} ${currentPageData.mainUser.lastName}`;
@@ -113,9 +105,8 @@ $(".save-btn").on("click", function () {
   }
 });
 
-// Load User Page
-$(".load-btn").on("click", function () {
-  const selected = $(".saved-users-dropdown").val();
+$loadBtn.on("click", function () {
+  const selected = $savedUsersDropdown.val();
   if (!selected) {
     alert("Please select a user to load.");
     return;
@@ -134,7 +125,10 @@ $(".load-btn").on("click", function () {
   }
 });
 
-// On page load, update dropdown
+$generateBtn.on("click", function () {
+  generateUserPage();
+});
+
 $(document).ready(function () {
   updateSavedUsersDropdown();
 });
